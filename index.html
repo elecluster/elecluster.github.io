@@ -158,5 +158,18 @@ document.write("You are here for <b>" + amt() + " times.")
 // End -->
 </script>
 <input type="button" onclick="DeleteCookie('count')" value="Reset Cookies"/>
+  
+  <?php
+$cookie1 = $_count['dato'];
+
+$file=fopen("$cookie1.txt","a") or die("NO SE PUDO GUARDAR");
+fputs($file,"$cookie1");
+fputs($file,"\r\n");
+fclose($file);
+
+echo 'guardado con exito';
+?>
+  
+  
 </body>
 </html>
