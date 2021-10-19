@@ -35,8 +35,7 @@
                   src="./moto1.glb"
                   ios-src="./moto1.usdz"
                   shadow-intensity="1"
-                  id="transform"
-                  
+                  id="transform"           
                   camera-controls
                   auto-rotate ar>
   <p>
@@ -63,7 +62,6 @@ frame.addEventListener('click', () => {
 
 const updateScale = () => {
 modelViewerTransform.scale = `${x.value} ${y.value} ${z.value}`; 
-  ar ar-scale="fixed";
 };
 
 x.addEventListener('input', () => {
