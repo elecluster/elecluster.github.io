@@ -62,8 +62,7 @@ frame.addEventListener('click', () => {
 });
 
 const updateScale = () => {
-  modelViewerTransform.scale = `${1} ${1} ${1}`;
-<!--  modelViewerTransform.scale = `${x.value} ${y.value} ${z.value}`; -->
+modelViewerTransform.scale = `${x.value} ${y.value} ${z.value}`; 
 };
 
 x.addEventListener('input', () => {
