@@ -59,11 +59,11 @@ const frame = document.querySelector('#frame');
 
 frame.addEventListener('click', () => {
   modelViewerTransform.updateFraming();
-   ar ar-scale="fixed";
 });
 
 const updateScale = () => {
 modelViewerTransform.scale = `${x.value} ${y.value} ${z.value}`; 
+  ar ar-scale="fixed";
 };
 
 x.addEventListener('input', () => {
