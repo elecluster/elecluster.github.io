@@ -36,15 +36,15 @@
                   ios-src="./moto1.usdz"
                   shadow-intensity="1"
                   id="transform"
-           <!--       ar ar-scale="fixed" -->
+                  ar ar-scale="fixed"
                   camera-controls
                   auto-rotate ar>
   
      <div class="controls">
     <div>
-      Scale: X: <input id="x" value="1.2" size="3" class="number">,
-      Y: <input id="y" value="1.2" size="3" class="number">,
-      Z: <input id="z" value="1.2" size="3" class="number">
+      Scale: X: <input id="x" value="1" size="3" class="number">,
+      Y: <input id="y" value="1" size="3" class="number">,
+      Z: <input id="z" value="1" size="3" class="number">
     </div>
     <button id="frame"> </button>
   </div>
@@ -52,12 +52,9 @@
         </model-viewer>  
   <script>
 const modelViewerTransform = document.querySelector("model-viewer#transform");
-  <!-- const x = document.querySelector('#x'); -->
-  <!-- const y = document.querySelector('#y'); -->
-  <!-- const z = document.querySelector('#z'); -->
-    const x =1.2;
-    const y =1.2;
-    const z=1.2;
+   const x = document.querySelector('#x'); 
+   const y = document.querySelector('#y'); 
+   const z = document.querySelector('#z'); 
 const frame = document.querySelector('#frame');
 
 frame.addEventListener('click', () => {
@@ -65,7 +62,8 @@ frame.addEventListener('click', () => {
 });
 
 const updateScale = () => {
-  modelViewerTransform.scale = `${x.value} ${y.value} ${z.value}`;
+  modelViewerTransform.scale = `${1} ${1} ${1}`;
+<!--  modelViewerTransform.scale = `${x.value} ${y.value} ${z.value}`; -->
 };
 
 x.addEventListener('input', () => {
