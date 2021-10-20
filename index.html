@@ -39,7 +39,7 @@
                   camera-controls
                   ar ar-scale="auto";
                   auto-rotate ar>
-  <p>
+  <!--  <p>
      <div class="controls">
     <div>
       Scale: X: <input id="x" value="1" size="3" class="number">,
@@ -49,13 +49,13 @@
     <button id="frame"> </button>
   </div>
      
-        </model-viewer>  
+         </model-viewer>  
   <script>
 const modelViewerTransform = document.querySelector("model-viewer#transform");
    const x = document.querySelector('#x'); 
    const y = document.querySelector('#y'); 
    const z = document.querySelector('#z'); 
-const frame = document.querySelector('#frame');
+const frame = document.querySelector('#frame'); 
 
 frame.addEventListener('click', () => {
   modelViewerTransform.updateFraming();
@@ -75,7 +75,7 @@ z.addEventListener('input', () => {
   updateScale();
 });
 </script>
-    
+    -->
   
   
   
