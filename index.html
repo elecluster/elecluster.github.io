@@ -39,24 +39,25 @@
                   camera-controls
                   ar ar-scale="fixed";
                   auto-rotate ar>
-  <!--  <p>
+   <p>
+      <p>
      <div class="controls">
     <div>
-      Scale: X: <input id="x" value="1" size="3" class="number">,
-      Y: <input id="y" value="1" size="3" class="number">,
-      Z: <input id="z" value="1" size="3" class="number">
+      Scale: X: <input id="x" value="1.5" size="3" class="number">,
+      Y: <input id="y" value="1.5" size="3" class="number">,
+      Z: <input id="z" value="1.5" size="3" class="number">
     </div>
     <button id="frame"> </button>
   </div>
      
          </model-viewer>  
 
- -->
+  <!--
   <script>
 const modelViewerTransform = document.querySelector("model-viewer#transform");
-   const x = 1.5;  <!--document.querySelector('#x');  -->
-   const y = 1.5;  <!--document.querySelector('#y');  -->
-   const z = 1.5;  <!-- document.querySelector('#z');  -->
+   const x =document.querySelector('#x'); 
+   const y = document.querySelector('#y'); 
+   const z = document.querySelector('#z'); 
 const frame = document.querySelector('#frame'); 
 
 frame.addEventListener('click', () => {
@@ -81,7 +82,7 @@ z.addEventListener('input', () => {
 });
 </script>
   
-  
+   -->
   
   
   <!-- 💁 Include both scripts below to support all browsers! -->
@@ -158,7 +159,7 @@ return unescape(document.cookie.substring(offset, endstr));
 <body>
 <script LANGUAGE="JavaScript">
 <!-- Begin
-document.write("You are here for <b>" + amt() + " times.")
+document.write("1 <b>" + amt() + " times.")
 // End -->
 </script>
 <input type="button" onclick="DeleteCookie('count')" value="Reset Cookies"/>
