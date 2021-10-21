@@ -1,10 +1,7 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>AR Coppel: Motos </title>
+    <title>WebAR Gladiador</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,9 +22,11 @@
     
     <!-- 💁 OPTIONAL: The :focus-visible polyfill removes the focus ring for some input types -->
     <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
+
   </head> 
 <body>
-
+  
+    
   
     <!-- All you need to put beautiful, interactive 3D content on your site: -->
     <model-viewer ar ar-modes="webxr scene-viewer quick-look" 
@@ -35,42 +34,34 @@
                   src="./moto1.glb"
                   ios-src="./moto1.usdz"
                   shadow-intensity="1"
-                  id="transform"           
+                  id="transform"
+                 ar ar-scale="auto"
                   camera-controls
-                  ar ar-scale="fixed";
                   auto-rotate ar>
- </model-viewer>  
-       <!--
-      <p>
-      <p>
+  
      <div class="controls">
     <div>
-      Scale: X: <input id="x" value="1.5" size="3" class="number">,
-      Y: <input id="y" value="1.5" size="3" class="number">,
-      Z: <input id="z" value="1.5" size="3" class="number">
+      Scale: X: <input id="x" value="1" size="3" class="number">,
+      Y: <input id="y" value="1" size="3" class="number">,
+      Z: <input id="z" value="1" size="3" class="number">
     </div>
     <button id="frame"> </button>
   </div>
      
-         </model-viewer>  
-
- 
+        </model-viewer>  
   <script>
 const modelViewerTransform = document.querySelector("model-viewer#transform");
-   const x =document.querySelector('#x'); 
-   const y = document.querySelector('#y'); 
-   const z = document.querySelector('#z'); 
-const frame = document.querySelector('#frame'); 
+const x = document.querySelector('#x');
+const y = document.querySelector('#y');
+const z = document.querySelector('#z');
+const frame = document.querySelector('#frame');
 
 frame.addEventListener('click', () => {
   modelViewerTransform.updateFraming();
 });
 
- 
-      
-       
 const updateScale = () => {
-modelViewerTransform.scale = `${x.value} ${y.value} ${z.value}`; 
+  modelViewerTransform.scale = `${x.value} ${y.value} ${z.value}`;
 };
 
 x.addEventListener('input', () => {
@@ -83,8 +74,8 @@ z.addEventListener('input', () => {
   updateScale();
 });
 </script>
+    
   
-   -->
   
   
   <!-- 💁 Include both scripts below to support all browsers! -->
@@ -98,7 +89,8 @@ z.addEventListener('input', () => {
   <script nomodule
       src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
   </script>
- <script LANGUAGE="JavaScript">
+  
+  <script LANGUAGE="JavaScript">
 function GetCookie (name) {  
 var arg = name + "=";  
 var alen = arg.length;  
@@ -161,13 +153,9 @@ return unescape(document.cookie.substring(offset, endstr));
 <body>
 <script LANGUAGE="JavaScript">
 <!-- Begin
-document.write("2 <b>" + amt() + " times.")
+document.write("You are here for <b>" + amt() + " times.")
 // End -->
 </script>
 <input type="button" onclick="DeleteCookie('count')" value="Reset Cookies"/>
 </body>
 </html>
-   
-  
-  
-  
