@@ -50,22 +50,24 @@
   </div>
      
          </model-viewer>  
+
+ -->
   <script>
 const modelViewerTransform = document.querySelector("model-viewer#transform");
-   const x = document.querySelector('#x'); 
-   const y = document.querySelector('#y'); 
-   const z = document.querySelector('#z'); 
+   const x = 1.5;  <!--document.querySelector('#x');  -->
+   const y = 1.5;  <!--document.querySelector('#y');  -->
+   const z = 1.5;  <!-- document.querySelector('#z');  -->
 const frame = document.querySelector('#frame'); 
 
 frame.addEventListener('click', () => {
   modelViewerTransform.updateFraming();
 });
 
-  -->
+ 
       
-        <script>
+       
 const updateScale = () => {
-modelViewerTransform.scale = `${x.value=1.5} ${y.value=1.5} ${z.value=1.5}`; 
+modelViewerTransform.scale = `${x.value} ${y.value} ${z.value}`; 
 };
 
 x.addEventListener('input', () => {
