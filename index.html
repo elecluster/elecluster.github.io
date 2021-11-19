@@ -1,161 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>WebAR Gladiador</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+ <!-- three.js library -->
+ <script src='vendor/three.js/build/three.js'></script>
+ <script src="vendor/three.js/examples/js/libs/stats.min.js"></script>
+ <!-- jsartookit -->
+ <script src="../vendor/jsartoolkit5/build/artoolkit.min.js"></script>
+ <script src="../vendor/jsartoolkit5/js/artoolkit.api.js"></script>
+ <!-- include threex.artoolkit -->
+ <script src="../threex-artoolkitsource.js"></script>
+ <script src="../threex-artoolkitcontext.js"></script>
+ <script src="../threex-armarkercontrols.js"></script>
 
-    <link rel="stylesheet" href="./styles.css">
-    
-    <!-- The following libraries and polyfills are recommended to maximize browser support -->
-    <!-- NOTE: you must adjust the paths as appropriate for your project -->
-    
-    <!-- 🚨 REQUIRED: Web Components polyfill to support Edge and Firefox < 63 -->
-<!--     <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script> -->
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;'><div style='position: absolute; top: 10px; width:100%; text-align: center; z-index: 1;'>
+  <a href="https://github.com/jeromeetienne/AR.js/" target="_blank">AR.js</a> - three.js mobile performance
+  <br/>
+  Contact me any time at <a href='https://twitter.com/jerome_etienne' target='_blank'>@jerome_etienne</a>
+ </div><script>
+  //////////////////////////////////////////////////////////////////////////////////
+ // Init
+ //////////////////////////////////////////////////////////////////////////////////
 
-    <!-- 💁 OPTIONAL: Intersection Observer polyfill for better performance in Safari and IE11 -->
-<!--     <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script> -->
+// init renderer
+ var renderer = new THREE.WebGLRenderer({
+ // antialias : true,
+ alpha: true
+ });
+ renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+ // renderer.setPixelRatio( 1/2 );
+ renderer.setSize( window.innerWidth, window.innerHeight );
+ renderer.domElement.style.position = 'absolute'
+ renderer.domElement.style.top = '0px'
+ renderer.domElement.style.left = '0px'
+ document.body.appendChild( renderer.domElement );
 
-    <!-- 💁 OPTIONAL: Resize Observer polyfill improves resize behavior in non-Chrome browsers -->
-<!--     <script src="https://unpkg.com/resize-observer-polyfill@1.5.0/dist/ResizeObserver.js"></script> -->
-    
-    <!-- 💁 OPTIONAL: The :focus-visible polyfill removes the focus ring for some input types -->
-    <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
+// array of functions for the rendering loop
+ var onRenderFcts= [];
 
-  </head> 
-<body>
+// init scene and camera
+ var scene = new THREE.Scene();
+
+var ambient = new THREE.AmbientLight( 0x666666 );
+ scene.add( ambient );
+
+var directionalLight = new THREE.DirectionalLight( 0x887766 );
+ directionalLight.position.set( -1, 1, 1 ).normalize();
+ scene.add( directionalLight );
   
-    
-  
-    <!-- All you need to put beautiful, interactive 3D content on your site: -->
-    <model-viewer ar ar-modes="webxr scene-viewer quick-look" 
-                  
-                  src="./moto1.glb"
-                  ios-src="./moto1.usdz"
-                  shadow-intensity="1"
-                  id="transform"
-                 ar ar-scale="auto"
-                  camera-controls
-                  auto-rotate ar>
-  
-     <div class="controls">
-    <div>
-      Scale: X: <input id="x" value="1" size="3" class="number">,
-      Y: <input id="y" value="1" size="3" class="number">,
-      Z: <input id="z" value="1" size="3" class="number">
-    </div>
-    <button id="frame"> </button>
-  </div>
-     
-        </model-viewer>  
-  <script>
-const modelViewerTransform = document.querySelector("model-viewer#transform");
-const x = document.querySelector('#x');
-const y = document.querySelector('#y');
-const z = document.querySelector('#z');
-const frame = document.querySelector('#frame');
+  //////////////////////////////////////////////////////////////////////////////////
+ // Initialize a basic camera
+ //////////////////////////////////////////////////////////////////////////////////
 
-frame.addEventListener('click', () => {
-  modelViewerTransform.updateFraming();
-});
-
-const updateScale = () => {
-  modelViewerTransform.scale = `${x.value} ${y.value} ${z.value}`;
-};
-
-x.addEventListener('input', () => {
-  updateScale();
-});
-y.addEventListener('input', () => {
-  updateScale();
-});
-z.addEventListener('input', () => {
-  updateScale();
-});
-</script>
-    
+// Create a camera
+ var camera = new THREE.Camera();
+ scene.add(camera);
   
-  
-  
-  <!-- 💁 Include both scripts below to support all browsers! -->
+  ////////////////////////////////////////////////////////////////////////////////
+ // handle arToolkitSource
+ ////////////////////////////////////////////////////////////////////////////////
 
-  <!-- Loads <model-viewer> for modern browsers: -->
-  <script type="module"
-      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
-  </script>
+var arToolkitSource = new THREEx.ArToolkitSource({
+ // to read from the webcam
+ sourceType : 'webcam',
 
-  <!-- Loads <model-viewer> for old browsers like IE11: -->
-  <script nomodule
-      src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
-  </script>
+// to read from an image
+ // sourceType : 'image',
+ // sourceUrl : '../../data/images/img.jpg',
+
+// to read from a video
+ // sourceType : 'video',
+ // sourceUrl : '../../data/videos/headtracking.mp4',
+
+sourceWidth: 80*3,
+ sourceHeight: 60*3,
+ })
+
+arToolkitSource.init(function onReady(){
+ // handle resize of renderer
+ arToolkitSource.onResize(renderer.domElement)
+ })
+
+// handle resize
+ window.addEventListener('resize', function(){
+ // handle arToolkitSource resize
+ arToolkitSource.onResize(renderer.domElement)
+ })
   
-  <script LANGUAGE="JavaScript">
-function GetCookie (name) {  
-var arg = name + "=";  
-var alen = arg.length;  
-var clen = document.cookie.length;  
-var i = 0;  
-while (i < clen) {
-var j = i + alen;    
-if (document.cookie.substring(i, j) == arg)      
-return getCookieVal (j);    
-i = document.cookie.indexOf(" ", i) + 1;    
-if (i == 0) break;   
-}  
-return null;
-}
-function SetCookie (name, value) {  
-var argv = SetCookie.arguments;  
-var argc = SetCookie.arguments.length;  
-var expires = (argc > 2) ? argv[2] : null;  
-var path = (argc > 3) ? argv[3] : null;  
-var domain = (argc > 4) ? argv[4] : null;  
-var secure = (argc > 5) ? argv[5] : false;  
-document.cookie = name + "=" + escape (value) + 
-((expires == null) ? "" : ("; expires=" + expires.toGMTString())) + 
-((path == null) ? "" : ("; path=" + path)) +  
-((domain == null) ? "" : ("; domain=" + domain)) +    
-((secure == true) ? "; secure" : "");
-}
-function DeleteCookie (name) {  
-var exp = new Date();  
-exp.setTime (exp.getTime() - 1);   
-var cval = GetCookie (name);  
-document.cookie = name + "=" + cval + "; expires=" + exp.toGMTString();
-}
-var expDays = 30;
-var exp = new Date(); 
-exp.setTime(exp.getTime() + (expDays*24*60*60*1000));
-function amt(){
-var count = GetCookie('count')
-if(count == null) {
-SetCookie('count','1')
-return 1
-}
-else {
-var newcount = parseInt(count) + 1;
-DeleteCookie('count')
-SetCookie('count',newcount,exp)
-return count
-   }
-}
-function getCookieVal(offset) {
-var endstr = document.cookie.indexOf (";", offset);
-if (endstr == -1)
-endstr = document.cookie.length;
-return unescape(document.cookie.substring(offset, endstr));
-}
-// End -->
-</script>
- 
-<!-- STEP TWO: Copy this code into the BODY of your HTML document  -->
-<body>
-<script LANGUAGE="JavaScript">
-<!-- Begin
-document.write("You are here for <b>" + amt() + " times.")
-// End -->
-</script>
-<input type="button" onclick="DeleteCookie('count')" value="Reset Cookies"/>
-</body>
-</html>
+  ////////////////////////////////////////////////////////////////////////////////
+ // initialize arToolkitContext
+ ////////////////////////////////////////////////////////////////////////////////
+
+// create atToolkitContext
+ var arToolkitContext = new THREEx.ArToolkitContext({
+ cameraParametersUrl: '../../data/data/camera_para.dat',
+ detectionMode: 'mono',
+ imageSmoothingEnabled: false,
+ maxDetectionRate: 30,
+ sourceWidth: arToolkitSource.parameters.sourceWidth,
+ sourceHeight: arToolkitSource.parameters.sourceHeight,
+ })
+ // initialize it
+ arToolkitContext.init(function onCompleted(){
+ // copy projection matrix to camera
+ camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
+ })
+
+// update artoolkit on every frame
+ onRenderFcts.push(function(){
+ if( arToolkitSource.ready === false ) return
+
+arToolkitContext.update( arToolkitSource.domElement )
+ })
+  
+  ////////////////////////////////////////////////////////////////////////////////
+ // Create a ArMarkerControls
+ ////////////////////////////////////////////////////////////////////////////////
+
+var markerRoot = new THREE.Group
+ scene.add(markerRoot)
+ var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+ type : 'pattern',
+ patternUrl : '../../data/data/patt.hiro'
+ // patternUrl : '../../data/data/patt.kanji'
+ })
+ //////////////////////////////////////////////////////////////////////////////////
+ // add an object in the scene
+ //////////////////////////////////////////////////////////////////////////////////
+
+// add a torus knot
+ var geometry = new THREE.CubeGeometry(1,1,1);
+ var material = new THREE.MeshNormalMaterial({
+ transparent : true,
+ opacity: 0.5,
+ side: THREE.DoubleSide
+ });
+ var mesh = new THREE.Mesh( geometry, material );
+ mesh.position.z = geometry.parameters.height/2
+ markerRoot.add( mesh );
+
+var geometry = new THREE.TorusKnotGeometry(0.3,0.1,32,32);
+ var material = new THREE.MeshNormalMaterial();
+ var mesh = new THREE.Mesh( geometry, material );
+ mesh.position.z = 0.5
+ markerRoot.add( mesh );
+
+onRenderFcts.push(function(){
+ mesh.rotation.x += 0.1
+ })
+  
+  //////////////////////////////////////////////////////////////////////////////////
+ // render the whole thing on the page
+ //////////////////////////////////////////////////////////////////////////////////
+ var stats = new Stats();
+ document.body.appendChild( stats.dom );
+ // render the scene
+ onRenderFcts.push(function(){
+ renderer.render( scene, camera );
+ stats.update();
+ })
+
+// run the rendering loop
+ var lastTimeMsec= null
+ requestAnimationFrame(function animate(nowMsec){
+ // keep looping
+ requestAnimationFrame( animate );
+ // measure time
+ lastTimeMsec = lastTimeMsec || nowMsec-1000/60
+ var deltaMsec = Math.min(200, nowMsec - lastTimeMsec)
+ lastTimeMsec = nowMsec
+ // call each update function
+ onRenderFcts.forEach(function(onRenderFct){
+ onRenderFct(deltaMsec/1000, nowMsec/1000)
+ })
+ })
+ </script></body>
