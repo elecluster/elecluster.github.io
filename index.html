@@ -1,17 +1,178 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Hello, WebVR! - A-Frame</title>
-    <meta name="description" content="Hello, WebVR! - A-Frame">
-    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <title>AR Coppel: Motos </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="./styles.css">
+
+
+    <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
   </head>
-  <body>
-    <a-scene>
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9" shadow></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" shadow></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" shadow></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" shadow></a-plane>
-      <a-sky color="#ECECEC"></a-sky>
-    </a-scene>
-  </body>
+<body>
+
+
+      <model-viewer ar ar-modes="webxr scene-viewer quick-look"
+
+                    
+                  src="./Vento Rocketman.glb"
+                  ios-src="./Vento Rocketman.usdz"
+
+                  id="transform"
+                 ar ar-scale="fixed"
+                  camera-controls camera-controls disable-zoom
+                  auto-rotate ar>
+<!--
+     <div class="controls">
+    <div>
+      Scale: X: <input id="x" value="1" size="3" class="number">,
+      Y: <input id="y" value="1" size="3" class="number">,
+      Z: <input id="z" value="1" size="3" class="number">
+    </div>
+    <button id="frame"> </button>
+  </div>
+-->
+       <div class="slider">
+    <div class="slides">
+      <!--
+      <button class="slide selected" onclick="switchSrc(this, '518915')" style="background-image: url('518915.PNG');">
+
+      </button><button class="slide" onclick="switchSrc(this, '513468')" style="background-image: url('513468.PNG');">
+
+      </button><button class="slide" onclick="switchSrc(this, '593192')" style="background-image: url('593192.PNG');">
+      -->    
+
+      <button type="button" onclick="switchSrc(this,'moto1')"> <img src="518915.PNG" height ="32" width="40" /></button>
+      <button type="button" onclick="switchSrc(this,'moto1')"> <img src="513468.PNG" height ="32" width="40" /></button>
+      <button type="button" onclick="switchSrc(this,'Vento Rocketman')"> <img src="593192.PNG" height ="32" width="40" /></button>
+    </button>
+               
+         </div>
+  </div>             
+        </model-viewer>
+  <script>
+const modelViewerTransform = document.querySelector("model-viewer#transform");
+const x = document.querySelector('#x');
+const y = document.querySelector('#y');
+const z = document.querySelector('#z');
+const frame = document.querySelector('#frame');
+
+frame.addEventListener('click', () => {
+  modelViewerTransform.updateFraming();
+});
+
+const updateScale = () => {
+  modelViewerTransform.scale = `${x.value} ${y.value} ${z.value}`;
+};
+
+x.addEventListener('input', () => {
+  updateScale();
+});
+y.addEventListener('input', () => {
+  updateScale();
+});
+z.addEventListener('input', () => {
+  updateScale();
+});
+</script>
+
+
+  <script type="module">
+  const modelViewer = document.querySelector("model-viewer");
+
+  window.switchSrc = (element, name) => {
+    const base = "./" + name;
+    modelViewer.src = base + '.glb';
+    const slides = document.querySelectorAll(".slide");
+    slides.forEach((element) => {element.classList.remove("selected");});
+    element.classList.add("selected");
+  };
+
+  document.querySelector(".slider").addEventListener('beforexrselect', (ev) => {
+    // Keep slider interactions from affecting the XR scene.
+    ev.preventDefault();
+  });
+</script>
+  
+  
+  
+
+
+  <script type="module"
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+  </script>
+
+
+  <script nomodule
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
+  </script>
+ <script LANGUAGE="JavaScript">
+function GetCookie (name) {
+var arg = name + "=";
+var alen = arg.length;
+var clen = document.cookie.length;
+var i = 0;
+while (i < clen) {
+var j = i + alen;
+if (document.cookie.substring(i, j) == arg)
+return getCookieVal (j);
+i = document.cookie.indexOf(" ", i) + 1;
+if (i == 0) break;
+}
+return null;
+}
+function SetCookie (name, value) {
+var argv = SetCookie.arguments;
+var argc = SetCookie.arguments.length;
+var expires = (argc > 2) ? argv[2] : null;
+var path = (argc > 3) ? argv[3] : null;
+var domain = (argc > 4) ? argv[4] : null;
+var secure = (argc > 5) ? argv[5] : false;
+document.cookie = name + "=" + escape (value) +
+((expires == null) ? "" : ("; expires=" + expires.toGMTString())) +
+((path == null) ? "" : ("; path=" + path)) +
+((domain == null) ? "" : ("; domain=" + domain)) +
+((secure == true) ? "; secure" : "");
+}
+function DeleteCookie (name) {
+var exp = new Date();
+exp.setTime (exp.getTime() - 1);
+var cval = GetCookie (name);
+document.cookie = name + "=" + cval + "; expires=" + exp.toGMTString();
+}
+var expDays = 30;
+var exp = new Date();
+exp.setTime(exp.getTime() + (expDays*24*60*60*1000));
+function amt(){
+var count = GetCookie('count')
+if(count == null) {
+SetCookie('count','1')
+return 1
+}
+else {
+var newcount = parseInt(count) + 1;
+DeleteCookie('count')
+SetCookie('count',newcount,exp)
+return count
+   }
+}
+function getCookieVal(offset) {
+var endstr = document.cookie.indexOf (";", offset);
+if (endstr == -1)
+endstr = document.cookie.length;
+return unescape(document.cookie.substring(offset, endstr));
+}
+
+</script>
+
+<body>
+<script LANGUAGE="JavaScript">
+<!-- Begin
+document.write("You are here for <b>" + amt() + " times.")
+// End -->
+</script>
+<input type="button" onclick="DeleteCookie('count')" value="Reset Cookies"/>
+</body>
 </html>
