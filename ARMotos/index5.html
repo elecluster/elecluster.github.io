@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+ <style>
+.button {
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: white;
+  color: black;
+  border: 1px solid #006fb9;
+  border-radius:80px;
+}
+
+.button1:hover {
+  background-color: #006fb9;
+  color: white;
+}
+   
+ #ar-button {
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    background-position: 12px 50%;
+    background-color: #016EB9;
+    position: absolute;
+    top: 90%;
+    left: 80%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    bottom: 132px;
+    padding: 0px 16px 0px 40px;
+    font-family: Roboto Regular, Helvetica Neue, sans-serif;
+    font-size: 14px;
+    color:#fff;
+    line-height: 36px;
+    height: 36px;
+    border-radius: 18px;
+    border: 1px solid #DADCE0;
+  }
+   
+  #ar-button:active {
+    background-color: #E8EAED;
+    color:#000;
+  }
+
+  #ar-button:focus {
+    outline: none;
+  }
+
+  #ar-button:focus-visible {
+    outline: 1px solid #4285f4;
+  }
+   
+   @keyframes circle {
+    from { transform: translateX(-50%) rotate(0deg) translateX(50px) rotate(0deg); }
+    to   { transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg); }
+  }
+
+  @keyframes elongate {
+    from { transform: translateX(100px); }
+    to   { transform: translateX(-100px); }
+  }
+   
+   model-viewer > #ar-prompt {
+    position: absolute;
+    left: 50%;
+    bottom: 175px;
+    animation: elongate 2s infinite ease-in-out alternate;
+    display: none;
+  }
+
+  model-viewer[ar-status="session-started"] > #ar-prompt {
+    display: block;
+  }
+
+  model-viewer > #ar-prompt > img {
+    animation: circle 4s linear infinite;
+  }
+   
+   model-viewer > #ar-failure {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 175px;
+    display: none;
+  }
+   
+   model-viewer[ar-tracking="not-tracking"] > #ar-failure {
+    display: block;
+  }
+   
+  .text-block {
+  position: absolute;
+  bottom: 20px;
+  right: 200px;
+  background-color:  rgba(0, 0, 0, 0.2);
+  color: rgb(255,218,39);
+  font-size: 12px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+   .ventana {
+     background:rgba(17,85,157,.8);
+     width:30%;
+     color:rgba(255,218,39,1);
+     font-size:14px;
+     text-align:left;
+     padding:33px;
+     min-height:250px;
+     border-radius:22px;
+     position:absolute;
+     left:34%;
+     top:15%;
+     display:none;
+   }
+   
+   #cerrar{
+     position:absolute;
+     right:3px;
+     top:1px;
+   }
+</style>
+    
+     
+    
+    <title>AR Coppel: Motos </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="./styles.css">
+
+     
+    <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
+  </head>
+<body>
+
+
+      <model-viewer ar ar-modes="webxr scene-viewer quick-look"
+
+                    
+                  src="./Storm2.glb"
+                  ios-src="./Storm2.usdz"
+                  shadow-intensity="1"
+                  id="transform"
+                  ar ar-scale="fixed"
+                  camera-controls disable-zoom
+                  ar ar-placement="floor" 
+                  auto-rotate ar>
+<!--
+     <div class="controls">
+    <div>
+      Scale: X: <input id="x" value="1" size="3" class="number">,
+      Y: <input id="y" value="1" size="3" class="number">,
+      Z: <input id="z" value="1" size="3" class="number">
+    </div>
+    <button id="frame"> </button>
+  </div>
+-->
+      <div class="ventana" id="vent">
+        <div id="cerrar"> <a href="javascript:cerrar()"><img src="cruz.png"></a> </div>
+          <h4>VENTO</h4>
+          <p>Cilindrada: 250cc</p>
+          <p>Velocidad máxima: 120 km/h</p>
+          <p>Transmisión: manual de 5 velocidades</p>
+          <p>Encendido: eléctrico</p>
+          <p>Motor: 4 tiempos, enfriado por aire</p>
+          <p>Capacidad de tanque: 12 litros</p>
+          <p>Suspensión trasera: monoshock</p>
+        </div>  
+        
+       <button slot="ar-button" id="ar-button">
+          Presiona para ver la realidad aumentada
+        </button>
+        
+        <div id="ar-prompt">
+          <img src="hand.png" height ="90" width="70">
+        </div>
+        
+        <button id="ar-failure">
+          No se está detectando la superficie.
+        </button>
+     
+      <!--div id="f2c1" style="list-style-type:none;">
+        <li>
+            <ul><button type="button" onclick="switchSrc(this,'Vento Rocketman3amarilla')"> <img src="518915.PNG" height ="48" width="60" /></button></ul>
+            <ul><button type="button" onclick="switchSrc(this,'Vento Rocketman3')"> <img src="513468.PNG" height ="48" width="60" /></button></ul>
+            <ul><button type="button" onclick="switchSrc(this,'Vento Rocketman')"> <img src="593192.PNG" height ="48" width="60" /></button></ul>
+            <ul><button type="button" onclick="switchSrc(this,'Vento Rocketman4')"> <img src="518915.PNG" height ="48" width="60" /></button></ul>
+            <span><button class="button button1" onClick="window.location.reload();">Refresca página</button></span>
+            <span><button class="button button1" onClick="javascript:abrir()">Caracteristicas</button></span>            
+            <!-- <ul><a href="javascript:abrir()"> Caracteristicas </a></ul> >
+        </li>
+      </div-->
+               
+     <!--
+        <div class="text-block">
+          <h4>VENTO</h4>
+          <p>Cilindrada: 250cc</p>
+          <p>Velocidad máxima: 120 km/h</p>
+          <p>Transmisión: manual de 5 velocidades</p>
+          <p>Encendido: eléctrico</p>
+          <p>Motor: 4 tiempos, enfriado por aire</p>
+          <p>Capacidad de tanque: 12 litros</p>
+          <p>Suspensión trasera: monoshock</p>
+       </div>
+      -->
+  
+        </model-viewer>
+  
+ 
+    
+    
+</div>
+  
+  <script>
+    function abrir(){
+      document.getElementById("vent").style.display="block";
+    }
+    function cerrar(){
+      document.getElementById("vent").style.display="none";
+    }
+    
+  </script>
+    
+    
+  <script>
+const modelViewerTransform = document.querySelector("model-viewer#transform");
+const x = document.querySelector('#x');
+const y = document.querySelector('#y');
+const z = document.querySelector('#z');
+const frame = document.querySelector('#frame');
+
+frame.addEventListener('click', () => {
+  modelViewerTransform.updateFraming();
+});
+
+const updateScale = () => {
+  modelViewerTransform.scale = `${x.value} ${y.value} ${z.value}`;
+};
+
+x.addEventListener('input', () => {
+  updateScale();
+});
+y.addEventListener('input', () => {
+  updateScale();
+});
+z.addEventListener('input', () => {
+  updateScale();
+});
+</script>
+
+
+  <script type="module">
+  const modelViewer = document.querySelector("model-viewer");
+
+  window.switchSrc = (element, name) => {
+    const base = "./" + name;
+    modelViewer.src = base + '.glb';
+    const slides = document.querySelectorAll(".slide");
+    slides.forEach((element) => {element.classList.remove("selected");});
+    element.classList.add("selected");
+  };
+
+  document.querySelector(".slider").addEventListener('beforexrselect', (ev) => {
+    // Keep slider interactions from affecting the XR scene.
+    ev.preventDefault();
+  });
+</script>
+  
+  
+  
+
+
+  <script type="module"
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+  </script>
+
+
+  <script nomodule
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
+  </script>
+ <script LANGUAGE="JavaScript">
+function GetCookie (name) {
+var arg = name + "=";
+var alen = arg.length;
+var clen = document.cookie.length;
+var i = 0;
+while (i < clen) {
+var j = i + alen;
+if (document.cookie.substring(i, j) == arg)
+return getCookieVal (j);
+i = document.cookie.indexOf(" ", i) + 1;
+if (i == 0) break;
+}
+return null;
+}
+function SetCookie (name, value) {
+var argv = SetCookie.arguments;
+var argc = SetCookie.arguments.length;
+var expires = (argc > 2) ? argv[2] : null;
+var path = (argc > 3) ? argv[3] : null;
+var domain = (argc > 4) ? argv[4] : null;
+var secure = (argc > 5) ? argv[5] : false;
+document.cookie = name + "=" + escape (value) +
+((expires == null) ? "" : ("; expires=" + expires.toGMTString())) +
+((path == null) ? "" : ("; path=" + path)) +
+((domain == null) ? "" : ("; domain=" + domain)) +
+((secure == true) ? "; secure" : "");
+}
+function DeleteCookie (name) {
+var exp = new Date();
+exp.setTime (exp.getTime() - 1);
+var cval = GetCookie (name);
+document.cookie = name + "=" + cval + "; expires=" + exp.toGMTString();
+}
+var expDays = 30;
+var exp = new Date();
+exp.setTime(exp.getTime() + (expDays*24*60*60*1000));
+function amt(){
+var count = GetCookie('count')
+if(count == null) {
+SetCookie('count','1')
+return 1
+}
+else {
+var newcount = parseInt(count) + 1;
+DeleteCookie('count')
+SetCookie('count',newcount,exp)
+return count
+   }
+}
+function getCookieVal(offset) {
+var endstr = document.cookie.indexOf (";", offset);
+if (endstr == -1)
+endstr = document.cookie.length;
+return unescape(document.cookie.substring(offset, endstr));
+}
+
+</script>
+
+<body>
+<script LANGUAGE="JavaScript">
+<!-- Begin
+<!--document.write("You are here for <b>" + amt() + " times.")-->
+// End -->
+</script>
+<!--<input type="button" onclick="DeleteCookie('count')" value="Reset Cookies"/>-->
+</body>
+</html>
