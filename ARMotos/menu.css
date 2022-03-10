@@ -1,0 +1,154 @@
+@import url(fonts.css);
+/* 
+**Realizado por Alejandro Agustín Ahedo González 2021-Coppel
+**Favor de referencias este código como: Ahedo González A. 2021-AR Coppel
+*/
+
+* {
+margin:0;
+padding:0;
+box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Circular-Std-Book';
+  src: url('fonts/CircularStd-Book.woff2')
+  format('woff2'),
+  url('fonts/CircularStd-Book.woff')
+  format('woff'),
+  url('fonts/CircularStd-Book.ttf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Circular-Std-Bold';
+  src: url('fonts/CircularStd-Bold.woff2')
+  format('woff2'),
+  url('fonts/CircularStd-Bold.woff')
+  format('woff'),
+  url('fonts/CircularStd-Bold.ttf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+
+body{
+  background:#FFFFFA;
+  }
+  
+header{
+  width:100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: white;
+}
+
+header .container{
+  background:#FFFFFA;
+  width:98%;
+  max-width:1500px;
+}
+
+main{
+  width:88%;
+  max-width:1500px;
+  margin-top: 3%;
+}
+
+main .container1{
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+main .storm{
+  width: 220px;
+  margin-left: 165px;
+}
+
+main .rocketman{
+  width: 220px;
+  margin-left: 30px;
+}
+
+main .pulsar{
+  width: 220px;
+  margin-left: 30px;
+}
+
+main .screamer{
+  width: 240px;
+  margin-left: 30px;
+}
+
+h1{
+  font-family: Circular-Std-Bold,sans-serif;
+  color: #016EB9;
+  text-align: center;
+  margin-top: 40px;
+}
+
+p{
+  text-align: center;
+  font-family: Circular-Std-Book,sans-serif;
+  font-size: 12px;
+  margin-top: 5%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+section .instruccion{
+  font-family: Circular-Std-Book,sans-serif;
+  font-size: 17px;
+  color: #060100;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 20px;
+}
+
+.logocoppel{
+  width:20%;
+  max-width:100px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.logocenic{
+  width: 20%;
+  max-width:130px;
+  float: right;
+}
+
+main .botonprod{
+  margin-top: 1%;
+  float: right;
+  /*margin-right: 32.5%;*/
+  margin-right: 6.5%;
+  width: 170px;
+}
+
+main .botonprod1{
+  margin-top: 1%;
+  float: right;
+  margin-right: 6.5%;
+  width: 170px;
+}
+
+main .botonprod2{
+  margin-top: 1%;
+  float: right;
+  margin-right: 6.7%;
+  width: 170px;
+}
+
+main .botonprod3{
+  margin-top: 1%;
+  float: right;
+  margin-right: 6.7%;
+  width: 170px;
+}
